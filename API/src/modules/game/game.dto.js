@@ -36,7 +36,8 @@ export const createGameDTO = z.object({
     .string({
       invalid_type_error: "O genero deve ser um texto(string)!",
     })
-    .trim(),
+    .trim()
+    .min(3, { message: "O genero deve ter no mínimo 3 caracteres!" }),
 
   data_lanc: z.coerce
     .date({
@@ -47,15 +48,27 @@ export const createGameDTO = z.object({
     }),
 
   class_indicativa: z
-    .string({
-      invalid_type_error:
-        "O classificação indicativa deve ser um texto(string)!",
-    })
-    .trim(),
+    .enum(["LIVRE", "10", "12", "14", "16", "18"], {
+      errorMap: () => ({ message: "Classificação indicativa inválida!" }),
+    }),
 
   downloads: z
     .number({ invalid_type_error: "O total de downloads deve ser um número!" })
     .int({ message: "O total de downloads deve ser um número inteiro!" })
     .nonnegative({ message: "O total de downloads não pode ser negativo!" })
     .default(0),
+
+  preco: z
+    .number({ invalid_type_error: "O preço deve ser um número!" })
+    .nonnegative({ message: "O preço não pode ser negativo!" })
+    .max(9999.99, { message: "Preço máximo excedido!" }),
+
+  avaliacao: z
+    .number({ invalid_type_error: "A avaliação deve ser um número!" })
+    .nonnegative({ message: "A avaliação não pode ser negativa!" }),
+
+  loja: z
+    .number({ invalid_type_error: "O id da loja deve ser um número!" })
+    .int()
+    .positive({ message: "ID da loja inválido!" }),
 });

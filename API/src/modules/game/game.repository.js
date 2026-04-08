@@ -3,8 +3,7 @@ import pool from "../../config/pool.js";
 const GameRepository = {
   async createGame(game) {
     const result = await pool.execute(
-      `INSERT INTO jogo(titulo, descricao, capa_url, desenvolvedor, genero, data_lanc, class_indicativa, downloads)
-        VALUES(?,?,?,?,?,?,?,?);`,
+      `CALL p_createGame(?,?,?,?,?,?,?,?,?,?,?);`,
       [
         game.titulo,
         game.descricao,
@@ -14,10 +13,17 @@ const GameRepository = {
         game.data_lanc,
         game.class_indicativa,
         game.downloads,
+        game.preco,
+        game.avaliacao,
+        game.loja,
       ],
     );
     return result;
   },
+  async getAllGames(){
+    const [result] = await pool.execute(`SELECT * FROM jogo;`);
+    return result;
+  }
 };
 
 export default GameRepository;

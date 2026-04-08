@@ -5,6 +5,7 @@ import GameController from "./game.controller.js";
 
 const router = Router();
 
+router.get("/", GameController.getAllGames)
 router.post("/", validate(createGameDTO), GameController.createGame);
 
 export default router;
