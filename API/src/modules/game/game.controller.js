@@ -6,10 +6,46 @@ const GameController = {
     await GameService.createGame(req.body);
     return response.created(res, { message: "Jogo criado com sucesso!" });
   },
-  async getAllGames(_, res){
-    const result = await GameService.getAllGames();
-    return response.success(res, { message: "Jogos consultados com sucesso!", data: result });
-  }
+  async updateGame(req, res) {
+    const { id } = req.params;
+    const dbGame = await GameService.getGameById(id);
+
+    // dbGame é usado como padrão em caso do usuário não atualizar todos os campos o req.body sobrescreve o dbGame
+    const game = { ...dbGame, ...req.body, id }; 
+
+    await GameService.updateGame(game);
+
+    return response.success(res, {
+      message: "Jogo atualizado com sucesso!",
+    });
+  },
+  async deleteGame(req, res) {
+    await GameService.deleteGame(req.params.id);
+    return response.success(res, {
+      message: "Jogo deletado com sucesso!",
+    });
+  },
+  async getAllGames(_, res) {
+    const games = await GameService.getAllGames();
+    return response.success(res, {
+      message: "Jogos consultados com sucesso!",
+      data: games,
+    });
+  },
+  async getGameById(req, res) {
+    const game = await GameService.getGameById(req.params.id);
+
+    if (!game) {
+      return response.notFound(res, {
+        message: "Jogo não encontrado!",
+      });
+    }
+
+    return response.success(res, {
+      message: "Jogo consultado com sucesso!",
+      data: game,
+    });
+  },
 };
 
 export default GameController;

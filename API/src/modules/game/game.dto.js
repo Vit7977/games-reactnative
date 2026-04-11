@@ -47,28 +47,19 @@ export const createGameDTO = z.object({
       message: "A data de lançamento não pode ser no futuro!",
     }),
 
-  class_indicativa: z
-    .enum(["LIVRE", "10", "12", "14", "16", "18"], {
-      errorMap: () => ({ message: "Classificação indicativa inválida!" }),
-    }),
-
-  downloads: z
-    .number({ invalid_type_error: "O total de downloads deve ser um número!" })
-    .int({ message: "O total de downloads deve ser um número inteiro!" })
-    .nonnegative({ message: "O total de downloads não pode ser negativo!" })
-    .default(0),
-
-  preco: z
-    .number({ invalid_type_error: "O preço deve ser um número!" })
-    .nonnegative({ message: "O preço não pode ser negativo!" })
-    .max(9999.99, { message: "Preço máximo excedido!" }),
-
-  avaliacao: z
-    .number({ invalid_type_error: "A avaliação deve ser um número!" })
-    .nonnegative({ message: "A avaliação não pode ser negativa!" }),
-
-  loja: z
-    .number({ invalid_type_error: "O id da loja deve ser um número!" })
-    .int()
-    .positive({ message: "ID da loja inválido!" }),
+  class_indicativa: z.enum(["LIVRE", "10", "12", "14", "16", "18"], {
+    errorMap: () => ({ message: "Classificação indicativa inválida!" }),
+  }),
+  downloads: z.number({
+    invalid_type_error: "O total de downloads do jogo deve ser um número!",
+  }).int(),
 });
+
+export const getGameByIdDTO = z.object({
+  id: z.coerce
+    .number({ invalid_type_error: "O ID do jogo deve ser um número!" })
+    .int()
+    .positive({ message: "ID do jogo inválido!" }),
+});
+
+export const updateGameDTO = createGameDTO.partial();

@@ -45,32 +45,3 @@ CREATE TABLE IF NOT EXISTS jogo_loja(
     FOREIGN KEY (jogo) REFERENCES jogo(id),
     FOREIGN KEY (loja) REFERENCES loja(id)
 );
-
-DELIMITER //
-CREATE PROCEDURE p_createGame(
-    IN v_titulo VARCHAR(50),
-    IN v_descricao VARCHAR(255),
-    IN v_capa_url VARCHAR(255),
-    IN v_desenvolvedor VARCHAR(50),
-    IN v_genero VARCHAR(50),
-    IN v_data_lanc DATE,
-    IN v_class_indicativa VARCHAR(10),
-    IN v_downloads INT,
-
-    IN v_preco DECIMAL(6, 2),
-    IN v_avaliacao DECIMAL(3,1),
-    IN v_loja INT UNSIGNED
-)
-BEGIN
-    DECLARE jogo_id INT;
-
-    INSERT INTO jogo(titulo, descricao, capa_url, desenvolvedor, genero, data_lanc, class_indicativa, downloads)
-    VALUES(v_titulo, v_descricao, v_capa_url, v_desenvolvedor, v_genero, v_data_lanc, v_class_indicativa, v_downloads);
-
-    SET jogo_id = LAST_INSERT_ID();
-
-    INSERT INTO jogo_loja(preco, avaliacao, jogo, loja) 
-    VALUES(v_preco, v_avaliacao, jogo_id, v_loja);
-
-END //
-DELIMITER ;
