@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 
 import GameRouter from "./modules/game/game.routes.js";
+import StoreRouter from "./modules/store/store.routes.js";
 
 const PORT = process.env.API_PORT;
 const api = express();
@@ -10,7 +11,8 @@ const api = express();
 api.use(cors());
 api.use(express.json());
 
-api.use("/api/game", GameRouter);
+api.use("/api/jogo", GameRouter);
+api.use("/api/loja", StoreRouter);
 
 api.listen(PORT, () => {
   console.log(`API: http://localhost:${PORT}`);

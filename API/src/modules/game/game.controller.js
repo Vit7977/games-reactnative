@@ -11,15 +11,21 @@ const GameController = {
     const dbGame = await GameService.getGameById(id);
 
     // dbGame é usado como padrão em caso do usuário não atualizar todos os campos o req.body sobrescreve o dbGame
-    const game = { ...dbGame, ...req.body, id }; 
+    const data = { ...dbGame, ...req.body, id };
 
-    await GameService.updateGame(game);
+    await GameService.updateGame(data);
 
     return response.success(res, {
       message: "Jogo atualizado com sucesso!",
     });
   },
   async deleteGame(req, res) {
+    const game = await GameService.getGameById(req.params.id);
+
+    if (!game) {
+      return response.notFound(res, { message: "Jogo não encontrado!" });
+    }
+
     await GameService.deleteGame(req.params.id);
     return response.success(res, {
       message: "Jogo deletado com sucesso!",

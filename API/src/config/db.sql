@@ -1,4 +1,4 @@
--- DROP DATABASE appJogos;
+--DROP DATABASE appJogos;
 CREATE DATABASE appJogos;
 USE appJogos;
 
@@ -12,12 +12,12 @@ CREATE TABLE IF NOT EXISTS loja(
     cor2 VARCHAR(10)
 );
 
-INSERT INTO loja(nome, logo, site_url, cor1, cor2)
-VALUES
-("Steam", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/960px-Steam_icon_logo.svg.png", "https://store.steampowered.com", "#2a475e", "#ffffff"),
-("Playstation", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/3840px-PlayStation_logo.svg.png", "https://store.playstation.com/pt-br/pages/deals", "#00439c", "#ffffff"),
-("Xbox", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/1280px-Xbox_one_logo.svg.png", "https://www.xbox.com/games", "#ffffff", "#107c10"),
-("Nintendo", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Nintendo.svg/3840px-Nintendo.svg.png", "https://www.nintendo.com/store/games", "#dd2020", "#ffffff");
+-- INSERT INTO loja(nome, logo, site_url, cor1, cor2)
+-- VALUES
+-- ("Steam", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/960px-Steam_icon_logo.svg.png", "https://store.steampowered.com", "#2a475e", "#ffffff"),
+-- ("Playstation", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/3840px-PlayStation_logo.svg.png", "https://store.playstation.com/pt-br/pages/deals", "#00439c", "#ffffff"),
+-- ("Xbox", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/1280px-Xbox_one_logo.svg.png", "https://www.xbox.com/games", "#ffffff", "#107c10"),
+-- ("Nintendo", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Nintendo.svg/3840px-Nintendo.svg.png", "https://www.nintendo.com/store/games", "#dd2020", "#ffffff");
 
 DROP TABLE IF EXISTS jogo;
 CREATE TABLE IF NOT EXISTS jogo(
