@@ -11,7 +11,7 @@ function GameCard({ game, width, onPress }) {
                 </View>
                 <View style={styles.infoContainer}>
                     <Text style={styles.title}>{game.titulo}</Text>
-                    <Text>{dateFormatter(game.data_lanc)}</Text>
+                    <Text>{dateFormatter(game.data_lanc).date}</Text>
                     <Text>{game.desenvolvedor}</Text>
                 </View>
             </View>

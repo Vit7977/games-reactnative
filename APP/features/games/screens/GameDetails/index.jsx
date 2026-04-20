@@ -41,7 +41,7 @@ function GameDetails(prop) {
             <Text>{game.genero}</Text>
 
             <Text style={{ marginTop: 10, fontWeight: "500" }}>Data de Lançamento</Text>
-            <Text>{dateFormatter(game.data_lanc)}</Text>
+            <Text>{dateFormatter(game.data_lanc).date}</Text>
 
             <Text style={{ marginTop: 10, fontWeight: "500" }}>Classificação Indicativa</Text>
             <Text>{game.class_indicativa}</Text>
@@ -65,8 +65,15 @@ function GameDetails(prop) {
                                     width={90}
                                     onPress={() => Linking.openURL(item.site_url)}
                                 />
-
-                                <Text style={{ fontWeight: "500" }}>{moneyFormatter(item.preco)}</Text>
+                                {
+                                    item.preco_promocao
+                                        ? <View style={{ alignItems: "center"}}>
+                                            <Text style={{ fontWeight: "200", fontSize: 12, textDecorationLine: "line-through" }}>De {moneyFormatter(item.preco)}</Text>
+                                            <Text style={{ fontWeight: "500", fontSize: 12 }}>Por {moneyFormatter(item.preco_promocao)} </Text>
+                                            <Text style={{ fontWeight: "500", fontSize: 12, color: "#ce0000" }}>{dateFormatter(item.data_promocao_fim).datetime}</Text>
+                                        </View>
+                                        : <Text style={{ fontWeight: "500" }}>{moneyFormatter(item.preco)}</Text>
+                                }
                             </View>
                         ))
                         : <Text>Não possui lojas relacionadas!</Text>

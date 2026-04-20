@@ -4,7 +4,7 @@ import { styles } from './styles.js';
 function StoreCard({ store, width, onPress }) {
     return (
         <TouchableOpacity onPress={onPress}>
-            <View style={[styles.container, { backgroundColor: store.cor1, width: width }]}>
+            <View style={[styles.container, { backgroundColor: "#fff", width: width }]}>
                 <Image
                     style={styles.logo}
                     source={{ uri: store.logo || "https://cdn-icons-png.flaticon.com/512/3875/3875172.png" }}

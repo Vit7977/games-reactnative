@@ -17,7 +17,7 @@ VALUES
 ("Steam", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/960px-Steam_icon_logo.svg.png", "https://store.steampowered.com", "#2a475e", "#ffffff"),
 ("Playstation", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/3840px-PlayStation_logo.svg.png", "https://store.playstation.com/pt-br/pages/deals", "#00439c", "#ffffff"),
 ("Xbox", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/1280px-Xbox_one_logo.svg.png", "https://www.xbox.com/games", "#ffffff", "#107c10"),
-("Nintendo", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Nintendo.svg/3840px-Nintendo.svg.png", "https://www.nintendo.com/store/games", "#dd2020", "#ffffff");
+("Nintendo", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Nintendo_red_logo.svg/3840px-Nintendo_red_logo.svg.png", "#dd2020", "#ffffff");
 
 DROP TABLE IF EXISTS jogo;
 CREATE TABLE IF NOT EXISTS jogo(
@@ -49,3 +49,16 @@ CREATE TABLE IF NOT EXISTS jogo_loja(
     FOREIGN KEY (jogo) REFERENCES jogo(id) ON DELETE CASCADE,
     FOREIGN KEY (loja) REFERENCES loja(id) ON DELETE CASCADE
 );
+
+CREATE EVENT atualizar_promocoes
+ON SCHEDULE EVERY 1 MINUTE
+DO
+UPDATE jogo_loja
+SET 
+    preco = preco_promocao,
+    preco_promocao = NULL,
+    data_promocao_inicio = NULL,
+    data_promocao_fim = NULL
+WHERE 
+    data_promocao_fim IS NOT NULL
+    AND data_promocao_fim <= NOW();
